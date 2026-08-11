@@ -48,24 +48,28 @@ if page == "Dashboard":
     col1, col2, col3, col4 = st.columns(4)
 
     with col1:
+    st.title("TOTAL STUDENTS")
         st.metric(
             "Total Students",
             total_students(students)
         )
 
     with col2:
+    st.title("AVERAGE MARKS")
         st.metric(
             "Average Marks",
             round(average_marks(students), 2)
         )
 
     with col3:
+    st.title("HIGHEST MARKS")
         st.metric(
             "Highest Marks",
             highest_marks(students)
         )
 
     with col4:
+    st.title("LOWEST MARKS")
         st.metric(
             "Lowest Marks",
             lowest_marks(students)
