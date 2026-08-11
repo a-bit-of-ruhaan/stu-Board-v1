@@ -1,0 +1,163 @@
+/* ==========================================
+   GLOBAL STYLES & FONTS
+   ========================================== */
+@import url('https://googleapis.com');
+
+html, body, [data-testid="stAppViewContainer"] {
+    background-color: #FDFBF7 !important; /* Soft Cream Warm Background */
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: #4A3E3D !important; /* Deep Warm Espresso Text */
+}
+
+/* Heading Styling with a friendly school font */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Fredoka', sans-serif !important;
+    color: #6E5242 !important; /* Deep Terracotta / Dark Wood */
+    font-weight: 600 !important;
+}
+
+/* ==========================================
+   SIDEBAR (The "Teacher's Lounge")
+   ========================================== */
+[data-testid="stSidebar"] {
+    background-color: #8C7A6B !important; /* Vintage Paper / Light Brown */
+    color: #4A3E3D;
+    border-right: 2px solid #E6D9C5 !important;
+}
+
+/* Sidebar Radio Buttons transformed into neat menu items */
+[data-testid="stSidebar"] .stRadio > div {
+    gap: 8px;
+}
+
+[data-testid="stSidebar"] label {
+    font-family: 'Fredoka', sans-serif !important;
+    font-size: 1.1rem !important;
+    color: #6E5242 !important;
+}
+
+.stRadio{
+
+    color: #4A3E3D;
+}
+/* Hover & Active States for Radio Items */
+div[data-testid="stMarkdownContainer"] p {
+    transition: color 0.3s ease;
+}
+
+/* ==========================================
+   METRIC CARDS (The "Report Cards")
+   ========================================== */
+div[data-testid="stMetric"] {
+    background-color: #FFFFFF !important;
+    border: 1px solid #E6D9C5 !important;
+    border-radius: 16px !important;
+    padding: 20px 24px !important;
+    box-shadow: 0 4px 6px -1px rgba(110, 82, 66, 0.05), 0 2px 4px -1px rgba(110, 82, 66, 0.03) !important;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+    animation: fadeInUp 0.6s ease-out forwards;
+    opacity: 0;
+}
+
+/* Smooth pop out on hover */
+div[data-testid="stMetric"]:hover {
+    transform: translateY(-6px) scale(1.02);
+    border-color: #D4A373 !important; /* Soft Pastel Brown/Orange Accent */
+    box-shadow: 0 12px 20px -8px rgba(110, 82, 66, 0.15) !important;
+}
+
+/* Metric Label ("Total Students", etc) */
+div[data-testid="stMetricLabel"] p {
+    font-size: 0.9rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+    color: #8C7A6B !important; /* Muted Slate Brown */
+    font-weight: 700 !important;
+}
+
+/* Metric Value */
+div[data-testid="stMetricValue"] div {
+    font-family: 'Fredoka', sans-serif !important;
+    font-size: 2.2rem !important;
+    color: #4A3E3D !important;
+    font-weight: 700 !important;
+}
+
+/* Staggered entry animation delays for cards */
+div[col1] div[data-testid="stMetric"] { animation-delay: 0.1s; }
+div[col2] div[data-testid="stMetric"] { animation-delay: 0.2s; }
+div[col3] div[data-testid="stMetric"] { animation-delay: 0.3s; }
+div[col4] div[data-testid="stMetric"] { animation-delay: 0.4s; }
+
+/* ==========================================
+   FORMS, INPUTS & CONTROLS
+   ========================================== */
+/* Text inputs & Selectboxes styled like pristine notebooks */
+.stTextInput input, .stSelectbox cubic-bezier div[data-baseweb="select"] {
+    background-color: #FFFFFF !important;
+    border: 2px solid #E6D9C5 !important;
+    border-radius: 10px !important;
+    color: #4A3E3D !important;
+    transition: all 0.3s ease !important;
+}
+
+.stTextInput input:focus, .stSelectbox div[data-baseweb="select"]:focus-within {
+    border-color: #D4A373 !important;
+    box-shadow: 0 0 0 3px rgba(212, 163, 115, 0.2) !important;
+}
+
+/* Customizing the Streamlit Slider to match the aesthetic */
+.stSlider [data-testid="stSliderTickBar"] {
+    background-color: #E6D9C5 !important;
+}
+
+div[data-testid="stSlider"] div {
+    color: #6E5242 !important;
+}
+
+/* ==========================================
+   DATAFRAME/TABLE CUSTOMIZATION
+   ========================================== */
+/* Softening the hard borders on dataframes */
+[data-testid="stDataFrame"] {
+    border: 1px solid #E6D9C5 !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+    background-color: #FFFFFF !important;
+    animation: fadeIn 0.8s ease-out forwards;
+}
+
+/* ==========================================
+   ANIMATIONS DEFINITIONS
+   ========================================== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Custom Scrollbar for a premium feel */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #FDFBF7;
+}
+::-webkit-scrollbar-thumb {
+    background: #E6D9C5;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #D4A373;
+}
