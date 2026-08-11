@@ -161,3 +161,14 @@ div[data-testid="stSlider"] div {
 ::-webkit-scrollbar-thumb:hover {
     background: #D4A373;
 }
+
+[data-testid="stMetricLabel"] {
+    color: #6b4423 !important;
+    opacity: 1 !important;
+    font-weight: 600 !important;
+    font-size: 0.95rem !important;
+}
+
+[data-testid="stMetricValue"] {
+    color: #2b1d0e !important;
+}
