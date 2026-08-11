@@ -74,7 +74,7 @@ if page == "Dashboard":
 elif page == "Students":
 
     st.title("Students")
-    st.write("Search, filter and sort students.")
+    st.write("STUDENT DASHBOARD")
 
     st.subheader("Search Student")
 
