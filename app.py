@@ -14,6 +14,8 @@ from functions.std_data import (
     total_students
 )
 
+students = load_students()
+
 APP_DIR = Path(__file__).resolve().parent
 
 st.set_page_config(
@@ -22,98 +24,99 @@ st.set_page_config(
 )
 
 with open(APP_DIR / "style.css") as f:
-    st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
-
-students = load_students()
-
-st.sidebar.title("Students Hub")
-
-page = st.sidebar.radio(
-    "Navigation",
-    ["Dashboard", "Students", "Analytics"]
-)
-
-if page == "Dashboard":
-
-    st.title("STUDENT DASHBOARD")
-    st.write("Welcome to the Students Analytics Dashboard")
-
-    st.header("Dashboard")
-    st.write("Overview of Students Performance.")
-
-    col1, col2, col3, col4 = st.columns(4)
-
-    with col1:
-        st.metric("Total Students", total_students(students))
-
-    with col2:
-        st.metric("Average Marks", round(average_marks(students), 2))
-
-    with col3:
-        st.metric("Highest Marks", highest_marks(students))
-
-    with col4:
-        st.metric("Lowest Marks", lowest_marks(students))
-
-elif page == "Students":
-
-    st.title("Students")
-    st.write("STUDENT DASHBOARD")
-
-    st.subheader("Search Student")
-
-    search = st.text_input(
-        "Search Students",
-        placeholder="Enter Student Name"
+    st.markdown(
+        f"<style>{f.read()}</style>",
+        unsafe_allow_html=True
     )
 
-    filtered_students = search_students(students, search)
+st.sidebar.title("Student Hub")
+page = st.sidebar.radio(
+    "Navigation",
+    ["Dashboard", "Student Analytics"]
+)
 
-    col1, col2 = st.columns(2)
+st.title("StuBoard")
+st.write("A working Dashboard which provides dataframes with feature like Sorting, Filtering and Analyzing")
+st.write("Use the navigation bar to switch pages")
+
+if page == "Dashboard":
+    col1, col2 = st.columns([4, 1])
+
+    st.markdown(
+        """
+        <div class="Header_m">
+            <h1>DASHBOARD</h1>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
     with col1:
+        st.title("STUDENT METRICS OF GIVEN DATA")
+        st.write("Navigate to the Analytics page for more detailed info.")
+
+    with col2:
+        st.write(" ")
+
+    col3, col4 = st.columns(2)
+    with col3:
+        st.metric("Total Students", total_students(students))
+    with col4:
+        st.metric("Average Marks", round(average_marks(students), 2))
+
+    col5, col6 = st.columns(2)
+    with col5:
+        st.metric("Highest Marks", highest_marks(students))
+    with col6:
+        st.metric("Lowest Marks", lowest_marks(students))
+
+elif page == "Student Analytics":
+    st.title("STUDENT DASHBOARD")
+
+    st.subheader("Search Students")
+    search = st.text_input(
+        "Search Name",
+        placeholder="Enter Name"
+    )
+
+    # 1. Start with the search filter
+    filtered_students = search_students(students, search)
+    
+    # --- MOVED ALL FILTER CODE INSIDE THIS BLOCK ---
+    colx, coly = st.columns(2)
+    with colx:
         city = st.selectbox(
             "City",
             ["All"] + sorted(students["City"].unique().tolist())
         )
         filtered_students = filter_by_city(filtered_students, city)
-
-    with col2:
+    with coly:
         student_class = st.selectbox(
             "Class",
             ["All"] + sorted(students["Class"].unique().tolist())
         )
         filtered_students = filter_by_class(filtered_students, student_class)
 
-    marks = st.slider("Minimum Marks", 0, 100, 0)
+    marks = st.slider(
+        "Minimum Marks",
+        0,
+        100,
+        0
+    )
     filtered_students = filter_by_marks(filtered_students, marks)
 
-    col1, col2 = st.columns(2)
+    cola, colb = st.columns(2)
+    with cola:
+        sort_column = st.selectbox(
+            "Sort By", ["Name", "Age", "Marks"]
+        )
 
-    with col1:
-        sort_column = st.selectbox("Sort By", ["Name", "Age", "Marks"])
+    with colb:
+        ascending = st.checkbox(
+            "Ascending Order"
+        )    
+        filtered_students = sort_students(filtered_students, sort_column, ascending)
 
-    with col2:
-        ascending = st.checkbox("Ascending Order")
-
-    filtered_students = sort_students(filtered_students, sort_column, ascending)
-
+    # 2. Display the final filtered dataframe at the very end
     st.write(f"Showing {len(filtered_students)} students")
-
     st.dataframe(filtered_students, use_container_width=True, hide_index=True)
-
-elif page == "Analytics":
-
-    st.title("Analytics")
-    st.write("Students performance analytics will appear here.")
-
-    col1, col2, col3 = st.columns(3)
-
-    with col1:
-        st.metric("Average Marks", round(average_marks(students), 2))
-
-    with col2:
-        st.metric("Highest Marks", highest_marks(students))
-
-    with col3:
-        st.metric("Lowest Marks", lowest_marks(students))
